@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "781348658663-1sgadanbq6sjlvvjbv49hf7pfb9depeu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "carnetdepeche.istic.com.carnetdepeche",
+            "certificate_hash": "216E8EA4FB351434369656F0F18EE97C116F9C1F"
+          }
+        },
+        {
+          "client_id": "781348658663-jpcprtvlf1lccbpjvg4ti6s2lm4fflo3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "carnetdepeche.istic.com.carnetdepeche",
+            "certificate_hash": "AC76B1FBF6E95E4EBC70DBF1F0D288B61E89709B"
+          }
+        },
+        {
           "client_id": "781348658663-jvm75ab4vp9n7nu7106oquen3m7g981u.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "781348658663-jvm75ab4vp9n7nu7106oquen3m7g981u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

@@ -63,5 +63,4 @@ public class HomeActivity extends AppCompatActivity {
             mDatabase.addValueEventListener(fishListener);
         }
     }
-
 }
