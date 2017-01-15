@@ -8,6 +8,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import carnetdepeche.istic.com.carnetdepeche.model.Fish;
+import carnetdepeche.istic.com.carnetdepeche.model.GPSCoord;
+
 public class TestActivity extends AppCompatActivity {
 
     FirebaseDatabase fbDb;
@@ -18,9 +21,13 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        this.fbDb = FirebaseDatabase.getInstance();
-        this.dbRef = this.fbDb.getReference("species");
+        GPSCoord gps1 = new GPSCoord(-1.14614516, 13.556746187);
+        GPSCoord gps2 = new GPSCoord(12.14614516, -14.556746187);
 
-        dbRef.child("species").setValue("Test");
+        this.fbDb = FirebaseDatabase.getInstance();
+        this.dbRef = this.fbDb.getReference("positions");
+
+        dbRef.push().setValue(gps2);
+        dbRef.push().setValue(gps1);
     }
 }
