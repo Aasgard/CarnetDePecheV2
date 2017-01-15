@@ -16,8 +16,7 @@
         android:id="@+id/btn_google_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_logout"
-        android:layout_alignParentStart="true" />
+        android:layout_above="@+id/btn_logout" />
 
     <Button
         android:text="Se déconnecter"

@@ -41,46 +41,30 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         findViewById(R.id.btn_google_login).setOnClickListener(this);
         findViewById(R.id.btn_logout).setOnClickListener(this);
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("781348658663-jvm75ab4vp9n7nu7106oquen3m7g981u.apps.googleusercontent.com")
-                .requestEmail()
-                .build();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.web_client_key)).requestEmail().build();
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-
-        // [START initialize_auth]
+        mGoogleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
         mAuth = FirebaseAuth.getInstance();
-        // [END initialize_auth]
 
-        // [START auth_state_listener]
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
-                    // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
             }
         };
-        // [END auth_state_listener]
     }
 
-    // [START on_start_add_listener]
     @Override
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
     }
-    // [END on_start_add_listener]
 
-    // [START on_stop_remove_listener]
     @Override
     public void onStop() {
         super.onStop();
@@ -88,9 +72,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
-    // [END on_stop_remove_listener]
 
-    // [START onactivityresult]
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -102,22 +84,21 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
-                Toast.makeText(this, "Connecté : " + account.getEmail().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Connecté : " + account.getId().toString(), Toast.LENGTH_SHORT).show();
                 firebaseAuthWithGoogle(account);
-            }else{
+                Intent i = new Intent(this, HomePage.class);
+                startActivity(i);
+            } else {
                 Toast.makeText(this, "Erreur [onActivityResult fail]", Toast.LENGTH_SHORT).show();
             }
         }
     }
-    // [END onactivityresult]
 
-    // [START auth_with_google]
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
@@ -132,28 +113,19 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     }
                 });
     }
-    // [END auth_with_google]
 
-    // [START signin]
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-    // [END signin]
 
     private void signOut() {
-        // Firebase sign out
         mAuth.signOut();
-
-        // Google sign out
         Auth.GoogleSignInApi.signOut(mGoogleApiClient);
     }
 
     private void revokeAccess() {
-        // Firebase sign out
         mAuth.signOut();
-
-        // Google revoke access
         Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient);
     }
 
