@@ -1,5 +1,6 @@
 package carnetdepeche.istic.com.carnetdepeche;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -109,6 +110,16 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
         } else if (id == R.id.drawer_get_places) {
 
+        } else if (id == R.id.drawer_logoff) {
+            FirebaseAuth.getInstance().signOut();
+            Intent i = new Intent(this, Login.class);
+            ProgressDialog dialog = new ProgressDialog(this); // this = YourActivity
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dialog.setMessage("Chargement ...");
+            dialog.setIndeterminate(true);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

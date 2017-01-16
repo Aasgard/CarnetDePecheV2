@@ -1,5 +1,6 @@
 package carnetdepeche.istic.com.carnetdepeche;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -92,6 +93,12 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                ProgressDialog dialog = new ProgressDialog(this); // this = YourActivity
+                dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                dialog.setMessage("Chargement ...");
+                dialog.setIndeterminate(true);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
                 startActivity(i);
             } else {
                 Toast.makeText(this, "Erreur [onActivityResult fail]", Toast.LENGTH_SHORT).show();
