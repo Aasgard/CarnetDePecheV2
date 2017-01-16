@@ -63,7 +63,7 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_add_fish);
-        getSupportActionBar().setTitle("Ajouter un coin de pêche");
+        getSupportActionBar().setTitle("Ajouter une prise");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
