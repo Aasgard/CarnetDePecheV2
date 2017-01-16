@@ -87,6 +87,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 Toast.makeText(this, "Connecté : " + account.getId().toString(), Toast.LENGTH_SHORT).show();
                 firebaseAuthWithGoogle(account);
                 Intent i = new Intent(this, HomePage.class);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 startActivity(i);
             } else {
                 Toast.makeText(this, "Erreur [onActivityResult fail]", Toast.LENGTH_SHORT).show();

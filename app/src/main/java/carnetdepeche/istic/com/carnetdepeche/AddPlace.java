@@ -2,12 +2,14 @@ package carnetdepeche.istic.com.carnetdepeche;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -42,17 +44,23 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback {
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
+        this.lastMarkerPosition = null;
+        this.lastLatLng = null;
+
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, 123);
             return;
         }
-        location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        Toast.makeText(this, Boolean.toString(location == null), Toast.LENGTH_SHORT).show();
 
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        this.lastMarkerPosition = null;
-        this.lastLatLng = null;
 
         addPlaceValidate = (FloatingActionButton) findViewById(R.id.add_place_validate);
         addPlaceValidate.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +72,8 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback {
                 }
             }
         });
+
+
     }
 
     @Override
@@ -103,10 +113,10 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback {
                 googleMap.moveCamera(cameraUpdate);
             }
         });
-        LatLng local = new LatLng(this.location.getLatitude(), this.location.getLongitude());
+        /*LatLng local = new LatLng(this.location.getLatitude(), this.location.getLongitude());
         CameraPosition cameraPosition = new CameraPosition.Builder().target(local).zoom(17.0f).build();
         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
-        googleMap.moveCamera(cameraUpdate);
+        googleMap.moveCamera(cameraUpdate);*/
     }
 
 }
