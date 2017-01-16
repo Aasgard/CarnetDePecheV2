@@ -79,7 +79,7 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
             return;
         }
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 60, 0, (LocationListener) this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 60, 0, this);
 
         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
@@ -109,8 +109,7 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
     }
 
     private void selectImage(){
-        final CharSequence[] items = { "Prendre une photo", "Importer à partir de la Gallery",
-                "Retour" };
+        final CharSequence[] items = { "Prendre une photo", "Importer à partir de la Gallery", "Retour" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(AddPlace.this);
         builder.setTitle("Ajouter une photo");
@@ -279,7 +278,6 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
     public void onLocationChanged(Location location) {
         this.location = location;
         this.lastLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-        Toast.makeText(this, Boolean.toString(lastMarkerPosition == null), Toast.LENGTH_SHORT).show();
     }
 
     @Override
