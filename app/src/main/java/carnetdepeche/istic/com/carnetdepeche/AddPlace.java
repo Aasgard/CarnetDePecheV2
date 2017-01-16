@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -24,7 +24,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class AddPlace extends AppCompatActivity implements OnMapReadyCallback {
+public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 
     private MapFragment map;
     private GoogleMap gmap;
@@ -55,9 +55,9 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback {
             return;
         }
 
-        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 60, 0, this);
 
-        Toast.makeText(this, Boolean.toString(location == null), Toast.LENGTH_SHORT).show();
+        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -76,6 +76,9 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
+    /**
+     *  Quand on clic sur le bouton Retour dans la supportBar
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         finish();
@@ -113,10 +116,25 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback {
                 googleMap.moveCamera(cameraUpdate);
             }
         });
-        /*LatLng local = new LatLng(this.location.getLatitude(), this.location.getLongitude());
+        LatLng local = new LatLng(this.location.getLatitude(), this.location.getLongitude());
         CameraPosition cameraPosition = new CameraPosition.Builder().target(local).zoom(17.0f).build();
         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
-        googleMap.moveCamera(cameraUpdate);*/
+        googleMap.moveCamera(cameraUpdate);
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        this.location = location;
+        this.lastLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+        Toast.makeText(this, Boolean.toString(lastMarkerPosition == null), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+    @Override
+    public void onProviderEnabled(String provider) {}
+
+    @Override
+    public void onProviderDisabled(String provider) {}
 }
