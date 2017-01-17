@@ -20,7 +20,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
@@ -81,11 +80,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            Toast.makeText(this, result.getStatus().toString(), Toast.LENGTH_SHORT).show();
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
-                Toast.makeText(this, "Connecté : " + account.getId().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Bienvenue sur l'application", Toast.LENGTH_SHORT).show();
                 firebaseAuthWithGoogle(account);
                 Intent i = new Intent(this, HomePage.class);
                 try {
@@ -107,19 +105,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
-
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(Login.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -143,9 +133,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
-        // be available.
-        Log.d(TAG, "onConnectionFailed:" + connectionResult);
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 

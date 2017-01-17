@@ -107,10 +107,11 @@ public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNa
             Intent i = new Intent(getApplicationContext(), AddPlace.class);
             startActivity(i);
         } else if (id == R.id.drawer_get_fishes) {
-            Intent i = new Intent(getApplicationContext(), ViewPlaces.class);
+            Intent i = new Intent(getApplicationContext(), HomePage.class);
             startActivity(i);
         } else if (id == R.id.drawer_get_places) {
-
+            Intent i = new Intent(getApplicationContext(), ViewPlaces.class);
+            startActivity(i);
         } else if (id == R.id.drawer_logoff) {
             FirebaseAuth.getInstance().signOut();
             Intent i = new Intent(this, Login.class);
