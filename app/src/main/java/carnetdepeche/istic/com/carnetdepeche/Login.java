@@ -85,19 +85,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 GoogleSignInAccount account = result.getSignInAccount();
                 Toast.makeText(this, "Bienvenue sur l'application", Toast.LENGTH_SHORT).show();
                 firebaseAuthWithGoogle(account);
-                Intent i = new Intent(this, HomePage.class);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                ProgressDialog dialog = new ProgressDialog(this); // this = YourActivity
-                dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                dialog.setMessage("Chargement ...");
-                dialog.setIndeterminate(true);
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.show();
-                startActivity(i);
             } else {
                 Toast.makeText(this, "Erreur [onActivityResult fail]", Toast.LENGTH_SHORT).show();
             }
@@ -111,6 +98,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
                             Toast.makeText(Login.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Intent i = new Intent(getApplicationContext(), HomePage.class);
+                            startActivity(i);
                         }
                     }
                 });
