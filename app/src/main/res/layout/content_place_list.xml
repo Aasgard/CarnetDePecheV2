@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/photo_place"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+
+    <TextView
+        android:id="@+id/name_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/photo_place"
+        android:text="Nom du coin" />
+
+    <TextView
+        android:id="@+id/gps_lat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/name_place"
+        android:layout_toRightOf="@+id/photo_place"
+        android:text="gps_lat : "/>
+
+    <TextView
+        android:id="@+id/gps_long"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/name_place"
+        android:layout_toRightOf="@+id/gps_lat"
+        android:text="gps_long :"/>
+
+    <TextView
+        android:id="@+id/commentary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/gps_lat"
+        android:layout_toRightOf="@+id/photo_place"
+        android:text="Comment tu as riz ?"/>
+
+</RelativeLayout>

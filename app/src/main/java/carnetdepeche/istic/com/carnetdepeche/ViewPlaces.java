@@ -18,22 +18,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import carnetdepeche.istic.com.carnetdepeche.model.Fish;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import carnetdepeche.istic.com.carnetdepeche.model.Place;
+
+public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView tv_drawer_user_name;
     private TextView tv_drawer_user_email;
-    ListView fishListView;
+    ListView placeListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.activity_view_places);
 
-        setTitle("Liste des prises");
+        setTitle("Liste des coins de pêche");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -46,7 +48,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             }
         });
 
-        /*Toast.makeText(this, FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString(), Toast.LENGTH_SHORT).show();*/
+        Toast.makeText(this, FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString(), Toast.LENGTH_SHORT).show();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -64,11 +66,11 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         this.tv_drawer_user_name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         this.tv_drawer_user_email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
-        fishListView = (ListView) findViewById(R.id.listView);
+        placeListView = (ListView) findViewById(R.id.listView);
 
-        List<Fish> listFish = new ArrayList<Fish>();//getFish();
+        List<Place> listPlace = new ArrayList<Place>();//getPlaces();
 
-        fishListView.setAdapter(new FishAdapter(HomePage.this, listFish));
+        placeListView.setAdapter(new PlaceAdapter(ViewPlaces.this, listPlace));
 
     }
 
