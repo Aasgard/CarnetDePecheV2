@@ -18,11 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import carnetdepeche.istic.com.carnetdepeche.model.Fish;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import carnetdepeche.istic.com.carnetdepeche.model.Fish;
+
+public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView tv_drawer_user_name;
     private TextView tv_drawer_user_email;
@@ -31,9 +33,9 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.activity_view_places);
 
-        setTitle("Liste des prises");
+        setTitle("Liste des coins de pêche");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -68,7 +70,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
         List<Fish> listFish = new ArrayList<Fish>();//getFish();
 
-        fishListView.setAdapter(new FishAdapter(HomePage.this, listFish));
+        /*fishListView.setAdapter(new FishAdapter(ViewPlaces.this, listFish));*/
 
     }
 
@@ -105,7 +107,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             Intent i = new Intent(getApplicationContext(), AddPlace.class);
             startActivity(i);
         } else if (id == R.id.drawer_get_fishes) {
-            Intent i = new Intent(getApplicationContext(), HomePage.class);
+            Intent i = new Intent(getApplicationContext(), ViewPlaces.class);
             startActivity(i);
         } else if (id == R.id.drawer_get_places) {
 
