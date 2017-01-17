@@ -79,7 +79,7 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
             return;
         }
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 60, 0, (LocationListener) this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 60, 0, this);
 
         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
@@ -242,7 +242,7 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if(userChoosenTask.equals("Prendre une photo"))
                         cameraIntent();
-                    else if(userChoosenTask.equals("Importer à partir de la Gallery"))
+                    else if(userChoosenTask.equals("Importer à partir de la Galerie"))
                         galleryIntent();
                 } else {
                     //code for deny
