@@ -2,41 +2,24 @@ package carnetdepeche.istic.com.carnetdepeche;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.w3c.dom.Text;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ImageView iv_drawer_image;
     private TextView tv_drawer_user_name;
     private TextView tv_drawer_user_email;
 
@@ -44,6 +27,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        setTitle("Liste des prises");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -56,6 +41,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             }
         });
 
+        Toast.makeText(this, FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString(), Toast.LENGTH_SHORT).show();
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -66,7 +53,6 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
         View drawerHeaderView = navigationView.getHeaderView(0);
 
-        this.iv_drawer_image = (ImageView) drawerHeaderView.findViewById(R.id.drawer_display_image);
         this.tv_drawer_user_name = (TextView) drawerHeaderView.findViewById(R.id.drawer_display_name);
         this.tv_drawer_user_email = (TextView) drawerHeaderView.findViewById(R.id.drawer_display_email);
 
@@ -102,12 +88,14 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         int id = item.getItemId();
 
         if  (id == R.id.drawer_add_fish) {
-
+            Intent i = new Intent(getApplicationContext(), AddFish.class);
+            startActivity(i);
         } else if (id == R.id.drawer_add_place) {
             Intent i = new Intent(getApplicationContext(), AddPlace.class);
             startActivity(i);
         } else if (id == R.id.drawer_get_fishes) {
-
+            Intent i = new Intent(getApplicationContext(), HomePage.class);
+            startActivity(i);
         } else if (id == R.id.drawer_get_places) {
 
         } else if (id == R.id.drawer_logoff) {

@@ -13,7 +13,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:background="@mipmap/coin_de_peche"
+        android:background="@mipmap/header_blank_addfish"
         android:layout_height="150dp"
         android:id="@+id/add_fish_header_photos"></View>
 

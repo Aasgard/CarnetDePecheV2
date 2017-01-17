@@ -279,7 +279,6 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
     public void onLocationChanged(Location location) {
         this.location = location;
         this.lastLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-        Toast.makeText(this, Boolean.toString(lastMarkerPosition == null), Toast.LENGTH_SHORT).show();
     }
 
     @Override
