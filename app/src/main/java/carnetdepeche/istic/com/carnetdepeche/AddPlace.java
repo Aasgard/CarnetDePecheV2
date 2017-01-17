@@ -12,6 +12,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -32,6 +34,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -39,6 +42,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import carnetdepeche.istic.com.carnetdepeche.model.GPSCoord;
+import carnetdepeche.istic.com.carnetdepeche.model.Place;
 import carnetdepeche.istic.com.carnetdepeche.utility.Utility;
 
 public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
@@ -52,19 +57,26 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
     private LatLng lastLatLng;
     private FloatingActionButton addPlacePhoto;
 
+    private EditText placeName;
+    private EditText commentaries;
+
     // Photos manager attibute
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-    //private Button btnSelect;
+
     private View ivImage;
     private String userChoosenTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_add_place);
         getSupportActionBar().setTitle("Ajouter un coin de pêche");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        placeName = (EditText) findViewById(R.id.add_place_placename);
+        commentaries = (EditText) findViewById(R.id.add_place_commentaries);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -91,8 +103,20 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
             @Override
             public void onClick(View v) {
                 //Traitement et vérification pour insertion Firebase
-                if (lastLatLng != null) {
-                    Toast.makeText(AddPlace.this, lastLatLng.toString(), Toast.LENGTH_SHORT).show();
+                if (lastMarkerPosition != null) {
+                    if(placeName.getText().toString().trim().length() != 0){
+                        Place place = new Place();
+                        place.setNom(placeName.getText().toString());
+                        place.setCommentary(commentaries.getText().toString());
+                        place.setCreatorId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        place.setGps(new GPSCoord(lastMarkerPosition.getPosition().latitude, lastMarkerPosition.getPosition().longitude));
+                        //place.setPhoto(Uri.parse(ivImage.getBackground()));
+
+                    }else{
+                        Toast.makeText(AddPlace.this, "Veuillez renseigner le champs \"Nom du coin\"", Toast.LENGTH_LONG).show();
+                    }
+                }else{
+                    Toast.makeText(AddPlace.this, "Veuillez positionner un marqueur sur la carte", Toast.LENGTH_LONG).show();
                 }
             }
         });

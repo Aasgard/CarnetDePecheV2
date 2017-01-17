@@ -17,9 +17,9 @@ public class User {
     private String token;
     private Collection<Fish> fishes;
     private Collection<Place> places;
-    private Photo profilPicture;
+    private String profilPicture;
 
-    public User(Photo profilPicture, long id, String mail, char[] pwd, String firstName, String lastName, String token, Collection<Fish> fishes, Collection<Place> places) {
+    public User(String profilPicture, long id, String mail, char[] pwd, String firstName, String lastName, String token, Collection<Fish> fishes, Collection<Place> places) {
         this.profilPicture = profilPicture;
         this.id = id;
         this.mail = mail;
@@ -102,11 +102,11 @@ public class User {
         this.places = places;
     }
 
-    public Photo getProfilPicture() {
+    public String getProfilPicture() {
         return profilPicture;
     }
 
-    public void setProfilPicture(Photo profilPicture) {
+    public void setProfilPicture(String profilPicture) {
         this.profilPicture = profilPicture;
     }
 }

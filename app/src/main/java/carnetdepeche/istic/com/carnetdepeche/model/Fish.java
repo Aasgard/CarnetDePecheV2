@@ -10,17 +10,17 @@ import java.util.LinkedList;
 public class Fish {
     private long id;
     private Species species;
-    private Collection<Photo> photos;
+    private String photo;
     private int size;
     private double weight;
     private String commentary;
     private User fisherMan;
     private Place place;
 
-    public Fish(long id, Species species, Collection<Photo> photos,int size, double weight, String commentary, User fisherMan, Place place) {
+    public Fish(long id, Species species, String photo,int size, double weight, String commentary, User fisherMan, Place place) {
         this.id = id;
         this.species = species;
-        this.photos = photos;
+        this.photo = photo;
         this.size = size;
         this.weight = weight;
         this.commentary = commentary;
@@ -29,7 +29,7 @@ public class Fish {
     }
 
     public Fish() {
-        this.photos = new LinkedList<>();
+
     }
 
     public long getId() {
@@ -76,12 +76,12 @@ public class Fish {
         return fisherMan;
     }
 
-    public Collection<Photo> getPhotos() {
-        return photos;
+    public String getPhotos() {
+        return photo;
     }
 
-    public void setPhotos(Collection<Photo> photos) {
-        this.photos = photos;
+    public void setPhotos(String photo) {
+        this.photo = photo;
     }
 
     public Place getPlace() {
@@ -94,7 +94,6 @@ public class Fish {
 
     public void setFisherMan(User fisherMan) {
         this.fisherMan = fisherMan;
-
     }
 }
 

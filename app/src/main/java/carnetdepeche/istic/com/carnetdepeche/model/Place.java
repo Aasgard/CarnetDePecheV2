@@ -1,36 +1,34 @@
 package carnetdepeche.istic.com.carnetdepeche.model;
 
-import java.util.Collection;
-
 /**
  * Created by finnt on 30/11/2016.
  */
 
 public class Place {
-    private long id;
+    private String id;
     private String nom;
     private GPSCoord gps;
     private String commentary;
-    private Collection<Photo> photos;
-    private User creator;
+    private String photo;
+    private String creatorId;
 
-    public Place(long id, String nom, GPSCoord gps, String commentary, Collection<Photo> photos, User creator) {
+    public Place(String id, String nom, GPSCoord gps, String commentary, String photo, String creatorId) {
         this.id = id;
         this.nom = nom;
         this.gps = gps;
         this.commentary = commentary;
-        this.photos = photos;
-        this.creator = creator;
+        this.photo = photo;
+        this.creatorId = creatorId;
     }
 
     public Place() {
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -58,20 +56,20 @@ public class Place {
         this.commentary = commentary;
     }
 
-    public Collection<Photo> getPhotos() {
-        return photos;
+    public String getPhotoPath() {
+        return photo;
     }
 
-    public void setPhotos(Collection<Photo> photos) {
-        this.photos = photos;
+    public void setPhotoPath(String photo) {
+        this.photo = photo;
     }
 
-    public User getCreator() {
-        return creator;
+    public String getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
     }
 }
 
