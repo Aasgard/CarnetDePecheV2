@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CarnetDePeche</string>
     <string name="title_activity_login">Login</string>
-    <string name="web_client_key">781348658663-jvm75ab4vp9n7nu7106oquen3m7g981u.apps.googleusercontent.com</string>
+    <string name="web_client_key">781348658663-qe1b5gjgjpa41pcsh7ssdlcdl9fmeaip.apps.googleusercontent.com</string>
     <string name="title_activity_home_page">HomePage</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

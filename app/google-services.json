@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "781348658663-qe1b5gjgjpa41pcsh7ssdlcdl9fmeaip.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "carnetdepeche.istic.com.carnetdepeche",
+            "certificate_hash": "CA74C8A0722618BFD334A251FA7BC19CAEE00152"
+          }
+        },
+        {
           "client_id": "781348658663-1sgadanbq6sjlvvjbv49hf7pfb9depeu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
