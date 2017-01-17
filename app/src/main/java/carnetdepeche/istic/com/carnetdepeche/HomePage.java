@@ -21,10 +21,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import carnetdepeche.istic.com.carnetdepeche.model.Fish;
 
 import org.w3c.dom.Text;
 
@@ -33,12 +36,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ImageView iv_drawer_image;
     private TextView tv_drawer_user_name;
     private TextView tv_drawer_user_email;
+    ListView fishListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +78,12 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
         this.tv_drawer_user_name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         this.tv_drawer_user_email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+        fishListView = (ListView) findViewById(R.id.listView);
+
+        List<Fish> listFish = new ArrayList<Fish>();//getFish();
+
+        fishListView.setAdapter(new FishAdapter(HomePage.this, listFish));
 
     }
 
