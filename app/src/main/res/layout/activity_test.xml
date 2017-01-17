@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_test"
     android:layout_width="match_parent"
@@ -10,68 +9,4 @@
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     tools:context="carnetdepeche.istic.com.carnetdepeche.TestActivity">
-
-
-    <android.support.design.widget.FloatingActionButton
-        android:layout_gravity="bottom|right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:fabSize="normal"
-        app:srcCompat="@color/colorPrimaryDark"
-        android:id="@+id/floatingActionButton3"
-        android:baselineAlignBottom="true"
-        android:layout_below="@+id/map"
-        android:layout_alignStart="@+id/addphotobutton" />
-
-    <ScrollView
-        android:id="@+id/scrollviewtest"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:id="@+id/absolutelayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|fill_vertical|start|end"
-            android:orientation="vertical">
-
-            <View
-                android:id="@+id/header"
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:background="@color/common_google_signin_btn_text_light_pressed" />
-
-            <View
-                android:id="@+id/map"
-                android:layout_width="wrap_content"
-                android:layout_height="250dp"
-                android:background="@color/colorPrimary"
-                android:layout_below="@+id/header" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/addphotobutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:layout_x="286dp"
-                android:layout_y="176dp"
-                android:clickable="true"
-                app:fabSize="normal"
-                app:srcCompat="@mipmap/coin_de_peche"
-                android:layout_marginTop="169dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:inputType="textMultiLine"
-                android:ems="10"
-                android:id="@+id/editText3"
-                android:layout_below="@+id/map"
-                android:hint="Commentaires"
-                android:layout_height="450dp" />
-
-        </RelativeLayout>
-    </ScrollView>
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

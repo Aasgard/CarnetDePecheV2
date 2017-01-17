@@ -10,7 +10,24 @@
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     tools:context="carnetdepeche.istic.com.carnetdepeche.AddPlace"
-    app:layout_anchorGravity="bottom">
+    app:layout_anchorGravity="bottom"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_place_validate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        app:backgroundTint="?android:attr/colorPrimary"
+        app:fabSize="normal"
+        app:rippleColor="?android:attr/colorForegroundInverse"
+        app:srcCompat="@drawable/ic_menu_check"
+        tools:targetApi="lollipop"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|right"
+        android:layout_marginEnd="10dp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -35,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginEnd="13dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginTop="123dp"
                 android:clickable="true"
                 app:backgroundTint="?android:attr/colorPrimary"
@@ -43,20 +60,6 @@
                 app:rippleColor="?android:attr/colorBackgroundFloating"
                 app:srcCompat="@drawable/ic_menu_camera"
                 tools:targetApi="m" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/add_place_validate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignStart="@+id/add_place_photo"
-                android:layout_marginBottom="14dp"
-                android:clickable="true"
-                app:backgroundTint="?android:attr/colorPrimary"
-                app:fabSize="normal"
-                app:rippleColor="?android:attr/colorForegroundInverse"
-                app:srcCompat="@drawable/ic_menu_check"
-                tools:targetApi="lollipop" />
 
             <fragment
                 android:id="@+id/map"
