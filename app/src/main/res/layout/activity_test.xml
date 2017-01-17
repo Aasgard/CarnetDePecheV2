@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_test"
@@ -11,6 +11,18 @@
     android:paddingTop="0dp"
     tools:context="carnetdepeche.istic.com.carnetdepeche.TestActivity">
 
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_gravity="bottom|right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:srcCompat="@color/colorPrimaryDark"
+        android:id="@+id/floatingActionButton3"
+        android:baselineAlignBottom="true"
+        android:layout_below="@+id/map"
+        android:layout_alignStart="@+id/addphotobutton" />
 
     <ScrollView
         android:id="@+id/scrollviewtest"
@@ -60,18 +72,6 @@
                 android:hint="Commentaires"
                 android:layout_height="450dp" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:layout_gravity="bottom|right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                app:fabSize="normal"
-                app:srcCompat="@color/colorPrimaryDark"
-                android:id="@+id/floatingActionButton3"
-                android:baselineAlignBottom="true"
-                android:layout_below="@+id/map"
-                android:layout_alignStart="@+id/addphotobutton" />
-
         </RelativeLayout>
     </ScrollView>
-</AbsoluteLayout>
+</android.support.design.widget.CoordinatorLayout>
