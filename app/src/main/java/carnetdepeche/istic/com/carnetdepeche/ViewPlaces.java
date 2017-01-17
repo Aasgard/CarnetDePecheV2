@@ -22,13 +22,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-import carnetdepeche.istic.com.carnetdepeche.model.Fish;
+import carnetdepeche.istic.com.carnetdepeche.model.Place;
 
 public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView tv_drawer_user_name;
     private TextView tv_drawer_user_email;
-    ListView fishListView;
+    ListView placeListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +66,11 @@ public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNa
         this.tv_drawer_user_name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         this.tv_drawer_user_email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
-        fishListView = (ListView) findViewById(R.id.listView);
+        placeListView = (ListView) findViewById(R.id.listView);
 
-        List<Fish> listFish = new ArrayList<Fish>();//getFish();
+        List<Place> listPlace = new ArrayList<Place>();//getPlaces();
 
-        /*fishListView.setAdapter(new FishAdapter(ViewPlaces.this, listFish));*/
+        placeListView.setAdapter(new PlaceAdapter(ViewPlaces.this, listPlace));
 
     }
 
