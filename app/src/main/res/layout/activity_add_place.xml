@@ -71,11 +71,20 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/add_place_placename"
+                android:layout_below="@+id/map"
+                android:hint="Nom du coin" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
                 android:inputType="textMultiLine"
                 android:ems="10"
                 android:id="@+id/add_place_commentaries"
-                android:layout_below="@+id/map"
+                android:layout_below="@+id/add_place_placename"
                 android:hint="Commentaires" />
 
 
