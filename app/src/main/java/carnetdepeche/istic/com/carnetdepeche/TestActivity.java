@@ -35,7 +35,7 @@ public class TestActivity extends AppCompatActivity {
         FirebaseDatabase dbDb = FirebaseDatabase.getInstance();
         DatabaseReference dbRef = dbDb.getReference();
 
-        Toast.makeText(this, FirebaseAuth.getInstance().getCurrentUser().getUid().toString(), Toast.LENGTH_LONG).show();
+        /*Toast.makeText(this, FirebaseAuth.getInstance().getCurrentUser().getUid().toString(), Toast.LENGTH_LONG).show();
 
         FirebaseDatabase.getInstance().getReference("positions").addChildEventListener(new ChildEventListener() {
 
@@ -62,7 +62,9 @@ public class TestActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
 
-        });
+        });*/
+
+
 
     }
 

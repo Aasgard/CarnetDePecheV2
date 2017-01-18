@@ -70,14 +70,18 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/add_fish_place_choice"
                 android:layout_above="@+id/spinner2"
-                android:layout_below="@+id/map" />
+                android:layout_below="@+id/map"
+                android:spinnerMode="dialog"
+                android:dropDownWidth="match_parent" />
 
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/add_fish_choice_specie"
                 android:layout_below="@id/add_fish_place_choice"
-                android:entries="@array/species" />
+                android:entries="@array/species"
+                android:dropDownWidth="match_parent"
+                android:spinnerMode="dialog" />
 
             <EditText
                 android:layout_width="match_parent"
