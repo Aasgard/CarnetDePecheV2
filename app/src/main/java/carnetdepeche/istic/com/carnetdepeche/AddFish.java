@@ -21,6 +21,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -54,6 +55,7 @@ import java.util.List;
 
 import carnetdepeche.istic.com.carnetdepeche.dao.DAO_Fish;
 import carnetdepeche.istic.com.carnetdepeche.model.Fish;
+import carnetdepeche.istic.com.carnetdepeche.model.Place;
 import carnetdepeche.istic.com.carnetdepeche.utility.Utility;
 
 public class AddFish extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
@@ -99,15 +101,18 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
 
         DAO_Fish daoFish = new DAO_Fish();
 
-        final List<String> areas = new ArrayList<String>();
         daoFish.getDatabaseReference().child("place").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                List<String> areas = new ArrayList<String>();
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
-                    String placeList = areaSnapshot.child("nom").getValue(String.class);
-                    areas.add(placeList);
+                    Place placeList = areaSnapshot.getValue(Place.class);
+                    areas.add(placeList.getNom());
                 }
+                
+                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(AddFish.this, android.R.layout.simple_spinner_item, areas);
+                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                placeName.setAdapter(areasAdapter);
             }
 
             @Override
@@ -115,10 +120,7 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
 
             }
         });
-        ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(AddFish.this, android.R.layout.simple_spinner_item, areas);
-        areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        placeName.setAdapter(areasAdapter);
 
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
