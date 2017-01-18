@@ -103,9 +103,11 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
         weight = (EditText) findViewById(R.id.add_fish_weight);
         commentaries = (EditText) findViewById(R.id.add_fish_commentaries);
 
+        String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         // Fill spinner with place
         DAO_Fish daoFish = new DAO_Fish();
-        daoFish.getDatabaseReference().child("place").addListenerForSingleValueEvent(new ValueEventListener() {
+        daoFish.getDatabaseReference().child("place").orderByChild("creatorId").equalTo(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> areas = new ArrayList<String>();
