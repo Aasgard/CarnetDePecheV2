@@ -1,6 +1,7 @@
 package carnetdepeche.istic.com.carnetdepeche;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,7 @@ public class PlaceAdapter extends BaseAdapter {
         // TODO Auto-generated method stub
         PlaceAdapter.PlaceViewHolder holder=new PlaceAdapter.PlaceViewHolder();
         View rowView;
-        rowView = inflater.inflate(R.layout.content_fish_list, null);
+        rowView = inflater.inflate(R.layout.content_place_list, null);
 
         holder.name_place=(TextView) rowView.findViewById(R.id.name_place);
         //holder.avatar=(ImageView) rowView.findViewById(R.id.avatar);
@@ -66,7 +67,7 @@ public class PlaceAdapter extends BaseAdapter {
 
 
         Place place = result.get(position);
-
+        Log.i("tessssssssssst", place.getNom()+"      totot"+position);
         holder.name_place.setText(place.getNom());
         //holder.avatar.setImageResource(fish.getPhotos());
         holder.gps_long.setText(place.getGps().getLongitude()+"");
