@@ -21,6 +21,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -33,6 +36,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -40,6 +44,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import carnetdepeche.istic.com.carnetdepeche.dao.DAO_Fish;
+import carnetdepeche.istic.com.carnetdepeche.model.Fish;
 import carnetdepeche.istic.com.carnetdepeche.utility.Utility;
 
 public class AddFish extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
@@ -61,6 +67,14 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
     private View ivImage;
     private String userChoosenTask;
 
+    private Spinner placeName;
+    private Spinner species;
+    private EditText size;
+    private EditText weight;
+    private EditText commentaries;
+
+    private String photoPath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,12 +83,21 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
         getSupportActionBar().setTitle("Ajouter une prise");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        placeName = (Spinner) findViewById(R.id.add_fish_place_choice);
+        species = (Spinner) findViewById(R.id.add_fish_choice_specie);
+        size = (EditText) findViewById(R.id.add_fish_size);
+        weight = (EditText) findViewById(R.id.add_fish_weight);
+        commentaries = (EditText) findViewById(R.id.add_fish_commentaries);
+
+        DAO_Fish daoFish = new DAO_Fish();
+        ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(AddFish.this, android.R.layout.simple_spinner_item, daoFish.fillPlaceSpinner());
+        areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        placeName.setAdapter(areasAdapter);
+
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         this.lastMarkerPosition = null;
         this.lastLatLng = null;
-
-        this.spinner_species = (Spinner) findViewById(R.id.spinner2);
 
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_COARSE);
@@ -96,9 +119,28 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
             @Override
             public void onClick(View v) {
                 //Traitement et vérification pour insertion Firebase
-                if (lastLatLng != null) {
-//                    Toast.makeText(AddFish.this, lastLatLng.toString(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(AddFish.this, spinner_species.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                if (lastMarkerPosition != null) {
+                    if(size.getText().toString().trim().length()!=0 ){
+                        Fish fish = new Fish();
+
+                        DAO_Fish daoFish = new DAO_Fish();
+
+                        fish.setFisherMan(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        fish.setPhotoPath(photoPath);
+
+                        fish.setPlaceName(placeName.getSelectedItem().toString());
+
+                        fish.setSpecies(species.getSelectedItem().toString());
+                        fish.setSize(Long.valueOf(size.getText().toString()));
+                        fish.setWeight(Double.valueOf(weight.getText().toString()));
+                        fish.setCommentaries(commentaries.getText().toString());
+
+                        daoFish.create(fish);
+                    }else{
+                        Toast.makeText(AddFish.this, "Veuillez renseigner le champs \"Taille (cm)\"", Toast.LENGTH_LONG).show();
+                    }
+                }else{
+                    Toast.makeText(AddFish.this, "Veuillez positionner un marqueur sur la carte", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -176,6 +218,8 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
 
         File destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
+
+        photoPath = destination.getPath().toString();
 
         FileOutputStream fo;
         try {

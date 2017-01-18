@@ -1,58 +1,55 @@
 package carnetdepeche.istic.com.carnetdepeche.model;
 
-import java.util.Collection;
-import java.util.LinkedList;
-
 /**
  * Created by finnt on 30/11/2016.
  */
 
 public class Fish {
-    private long id;
-    private Species species;
+    private String id;
+    private String species;
     private String photo;
-    private int size;
+    private long size;
     private double weight;
-    private String commentary;
-    private User fisherMan;
-    private Place place;
+    private String commentaries;
+    private String fisherMan;
+    private String placeName;
 
-    public Fish(long id, Species species, String photo,int size, double weight, String commentary, User fisherMan, Place place) {
+    public Fish(String id, String species, String photo,int size, double weight, String commentaries, String fisherMan, String placeName) {
         this.id = id;
         this.species = species;
         this.photo = photo;
         this.size = size;
         this.weight = weight;
-        this.commentary = commentary;
+        this.commentaries = commentaries;
         this.fisherMan = fisherMan;
-        this.place = place;
+        this.placeName = placeName;
     }
 
     public Fish() {
 
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public Species getSpecies() {
+    public String getSpecies() {
         return species;
     }
 
-    public void setSpecies(Species species) {
+    public void setSpecies(String species) {
         this.species = species;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getSize() {
+    public long getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(long size) {
         this.size = size;
     }
 
@@ -64,35 +61,35 @@ public class Fish {
         this.weight = weight;
     }
 
-    public String getCommentary() {
-        return commentary;
+    public String getCommentaries() {
+        return commentaries;
     }
 
-    public void setCommentary(String commentary) {
-        this.commentary = commentary;
+    public void setCommentaries(String commentaries) {
+        this.commentaries = commentaries;
     }
 
-    public User getFisherMan() {
+    public String getFisherMan() {
         return fisherMan;
     }
 
-    public String getPhotos() {
+    public String getPhotoPath() {
         return photo;
     }
 
-    public void setPhotos(String photo) {
+    public void setPhotoPath(String photo) {
         this.photo = photo;
     }
 
-    public Place getPlace() {
-        return place;
+    public String getPlaceName() {
+        return placeName;
     }
 
-    public void setPlace(Place place) {
-        this.place = place;
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
     }
 
-    public void setFisherMan(User fisherMan) {
+    public void setFisherMan(String fisherMan) {
         this.fisherMan = fisherMan;
     }
 }
