@@ -74,21 +74,12 @@ public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNa
 
 
         DAO_Place dao = new DAO_Place();
-        /*dao.getAllPlaces();
-
-        List<Place> listPlace = dao.getAreas();
-        Log.d("-----------", "daoArea: "+listPlace.size());
-
-        placeListView.setAdapter(new PlaceAdapter(ViewPlaces.this,  dao.getAreas()));*/
-
-        Toast.makeText(this, FirebaseAuth.getInstance().getCurrentUser().getUid(), Toast.LENGTH_SHORT).show();
 
         String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         dao.getDatabaseReference().child("place").orderByChild("creatorId").equalTo(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(ViewPlaces.this, dataSnapshot.toString(), Toast.LENGTH_SHORT).show();
                 List<Place> areas = new ArrayList<>();
                 for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
                     Place placeList = areaSnapshot.getValue(Place.class);
@@ -117,9 +108,7 @@ public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNa
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } /*else {
-            super.onBackPressed();
-        }*/
+        }
     }
 
     @Override

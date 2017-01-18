@@ -55,8 +55,6 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             }
         });
 
-        /*Toast.makeText(this, FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString(), Toast.LENGTH_SHORT).show();*/
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
