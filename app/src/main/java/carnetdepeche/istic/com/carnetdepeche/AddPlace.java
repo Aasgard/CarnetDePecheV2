@@ -127,6 +127,8 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
                         daoPlace.create(place);
 
                         Toast.makeText(AddPlace.this, "Coin de pêche créé", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(getApplicationContext(), ViewPlaces.class);
+                        startActivity(i);
 
                     }else{
                         Toast.makeText(AddPlace.this, "Veuillez renseigner le champs \"Nom du coin\"", Toast.LENGTH_LONG).show();

@@ -164,6 +164,10 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
                         fish.setCommentaries(commentaries.getText().toString());
 
                         daoFish.create(fish);
+
+                        Toast.makeText(AddFish.this, "Prise créée", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(getApplicationContext(), HomePage.class);
+                        startActivity(i);
                     }else{
                         Toast.makeText(AddFish.this, "Veuillez renseigner le champs \"Taille (cm)\"", Toast.LENGTH_LONG).show();
                     }
