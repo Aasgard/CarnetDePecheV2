@@ -51,24 +51,30 @@ import carnetdepeche.istic.com.carnetdepeche.utility.Utility;
 
 public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 
+    /**
+     * Maps Attributs
+     */
     private MapFragment map;
     private GoogleMap gmap;
     private LocationManager locationManager;
     private Location location;
-    private FloatingActionButton addPlaceValidate;
     private MarkerOptions lastMarkerPosition;
     private LatLng lastLatLng;
-    private FloatingActionButton addPlacePhoto;
 
+    /**
+     * GUI attributs
+     */
+    private FloatingActionButton addPlaceValidate;
+    private FloatingActionButton addPlacePhoto;
     private EditText placeName;
     private EditText commentaries;
-
-    // Photos manager attibute
-    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-
     private View ivImage;
-    private String userChoosenTask;
 
+    /**
+     * Photos manager attibute
+     */
+    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+    private String userChoosenTask;
     private String photoPath;
 
     @Override
@@ -107,7 +113,6 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
         addPlaceValidate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Traitement et vérification pour insertion Firebase
                 if (lastMarkerPosition != null) {
                     if(placeName.getText().toString().trim().length() != 0){
                         Place place = new Place();
@@ -116,13 +121,13 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
                         place.setCreatorId(FirebaseAuth.getInstance().getCurrentUser().getUid());
                         place.setGps(new GPSCoord(lastMarkerPosition.getPosition().latitude, lastMarkerPosition.getPosition().longitude));
                         place.setPhotoPath(photoPath);
-                        // On instancie la DAO
+
                         DAO_Place daoPlace = new DAO_Place();
-                        // On créé l'objet place qui va être enregistré dans FireBase RT Storage
+
                         daoPlace.create(place);
+
                         Toast.makeText(AddPlace.this, "Coin de pêche créé", Toast.LENGTH_SHORT).show();
-                        //Intent i = new Intent(getApplicationContext(), ViewPlaces.class);
-                        //startActivity(i);
+
                     }else{
                         Toast.makeText(AddPlace.this, "Veuillez renseigner le champs \"Nom du coin\"", Toast.LENGTH_LONG).show();
                     }
@@ -284,7 +289,7 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
                     else if(userChoosenTask.equals("Importer à partir de la Gallery"))
                         galleryIntent();
                 } else {
-                    //code for deny
+
                 }
                 break;
             default:

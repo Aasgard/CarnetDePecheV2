@@ -60,29 +60,33 @@ import carnetdepeche.istic.com.carnetdepeche.utility.Utility;
 
 public class AddFish extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 
+    /**
+     * Maps Attributs
+     */
     private MapFragment map;
     private GoogleMap gmap;
     private LocationManager locationManager;
     private Location location;
-    private FloatingActionButton addFishValidate;
     private MarkerOptions lastMarkerPosition;
     private LatLng lastLatLng;
+
+    /**
+     * GUI attributs
+     */
+    private FloatingActionButton addFishValidate;
     private FloatingActionButton addFishPhoto;
-
-    private Spinner spinner_species;
-
-    // Photos manager attibute
-    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-    //private Button btnSelect;
-    private View ivImage;
-    private String userChoosenTask;
-
     private Spinner placeName;
     private Spinner species;
     private EditText size;
     private EditText weight;
     private EditText commentaries;
+    private View ivImage;
 
+    /**
+     * Photos manager attibute
+     */
+    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+    private String userChoosenTask;
     private String photoPath;
 
     @Override
@@ -99,8 +103,8 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
         weight = (EditText) findViewById(R.id.add_fish_weight);
         commentaries = (EditText) findViewById(R.id.add_fish_commentaries);
 
+        // Fill spinner with place
         DAO_Fish daoFish = new DAO_Fish();
-
         daoFish.getDatabaseReference().child("place").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -109,7 +113,7 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
                     Place placeList = areaSnapshot.getValue(Place.class);
                     areas.add(placeList.getNom());
                 }
-                
+
                 ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(AddFish.this, android.R.layout.simple_spinner_item, areas);
                 areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 placeName.setAdapter(areasAdapter);
@@ -120,8 +124,6 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
 
             }
         });
-
-
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -156,9 +158,6 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
 
                         fish.setFisherMan(FirebaseAuth.getInstance().getCurrentUser().getUid());
                         fish.setPhotoPath(photoPath);
-
-                        //fish.setPlaceName(placeName.getSelectedItem().toString());
-
                         fish.setSpecies(species.getSelectedItem().toString());
                         fish.setSize(Long.valueOf(size.getText().toString()));
                         fish.setWeight(Long.valueOf(weight.getText().toString()));
