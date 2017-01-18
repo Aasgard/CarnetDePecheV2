@@ -36,7 +36,6 @@ public class DAO_Place {
 
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
-    private List<Place> areas;
 
     public DatabaseReference getDatabaseReference(){
         return databaseReference;
@@ -45,7 +44,6 @@ public class DAO_Place {
     public DAO_Place(){
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
-        areas = new ArrayList<>();
     }
 
     public void create(Place place){

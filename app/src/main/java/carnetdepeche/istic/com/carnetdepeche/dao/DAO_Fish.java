@@ -26,6 +26,10 @@ public class DAO_Fish {
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
 
+    public DatabaseReference getDatabaseReference(){
+        return databaseReference;
+    }
+
     public DAO_Fish(){
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -38,24 +42,4 @@ public class DAO_Fish {
         storageReference.child("fish").child(key).putFile(file);
     }
 
-    public List<String> fillPlaceSpinner(){
-        final List<String> areas = new ArrayList<String>();
-        databaseReference.child("place").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
-                    String placeList = areaSnapshot.child("nom").getValue(String.class);
-                    areas.add(placeList);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        return areas;
-    }
 }

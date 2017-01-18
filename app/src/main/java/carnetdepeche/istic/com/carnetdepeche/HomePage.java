@@ -77,7 +77,6 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
         DAO_Fish dao = new DAO_Fish();
 
-
         dao.getDatabaseReference().child("fish").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
