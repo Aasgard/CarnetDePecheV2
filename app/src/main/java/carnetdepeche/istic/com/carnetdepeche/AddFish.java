@@ -109,6 +109,7 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> areas = new ArrayList<String>();
+                areas.add("");
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
                     Place placeList = areaSnapshot.getValue(Place.class);
                     areas.add(placeList.getNom());
@@ -162,6 +163,7 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
                         fish.setSize(Long.valueOf(size.getText().toString()));
                         fish.setWeight(Long.valueOf(weight.getText().toString()));
                         fish.setCommentaries(commentaries.getText().toString());
+                        fish.setPlaceName(placeName.getSelectedItem().toString());
 
                         daoFish.create(fish);
 
