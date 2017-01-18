@@ -67,9 +67,9 @@ public class FishAdapter extends BaseAdapter {
 
         holder.species.setText(fish.getSpecies());
         //holder.avatar.setImageResource(fish.getPhotos());
-        holder.size_fish.setText(String.valueOf(fish.getSize()));
-        holder.weight_fish.setText(fish.getWeight()+"");
-        holder.commentary.setText(fish.getCommentaries());
+        //holder.size_fish.setText(String.valueOf(fish.getSize()));
+        //holder.weight_fish.setText(fish.getWeight()+"");
+        //holder.commentary.setText(fish.getCommentaries());
 
         return rowView;
     }
