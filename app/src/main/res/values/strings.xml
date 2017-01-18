@@ -8,4 +8,16 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string-array name="species">
+        <item>Perche</item>
+        <item>Brochet</item>
+        <item>Gardon</item>
+        <item>Truite</item>
+        <item>Carpe</item>
+        <item>Bar</item>
+        <item>Requin</item>
+        <item>Roussette</item>
+        <item>Sandre</item>
+    </string-array>
 </resources>

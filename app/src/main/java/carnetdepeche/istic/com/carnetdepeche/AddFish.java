@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -52,6 +53,8 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
     private LatLng lastLatLng;
     private FloatingActionButton addFishPhoto;
 
+    private Spinner spinner_species;
+
     // Photos manager attibute
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     //private Button btnSelect;
@@ -70,6 +73,8 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
 
         this.lastMarkerPosition = null;
         this.lastLatLng = null;
+
+        this.spinner_species = (Spinner) findViewById(R.id.spinner2);
 
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_COARSE);
@@ -92,7 +97,8 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
             public void onClick(View v) {
                 //Traitement et vérification pour insertion Firebase
                 if (lastLatLng != null) {
-                    Toast.makeText(AddFish.this, lastLatLng.toString(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AddFish.this, lastLatLng.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddFish.this, spinner_species.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

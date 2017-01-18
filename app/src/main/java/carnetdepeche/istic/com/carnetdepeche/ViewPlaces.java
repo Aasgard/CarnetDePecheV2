@@ -128,4 +128,6 @@ public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNa
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

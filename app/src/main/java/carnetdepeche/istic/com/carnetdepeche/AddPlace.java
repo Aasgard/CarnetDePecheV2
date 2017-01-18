@@ -114,8 +114,13 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
                         place.setCreatorId(FirebaseAuth.getInstance().getCurrentUser().getUid());
                         place.setGps(new GPSCoord(lastMarkerPosition.getPosition().latitude, lastMarkerPosition.getPosition().longitude));
                         place.setPhotoPath(photoPath);
+                        // On instancie la DAO
                         DAO_Place daoPlace = new DAO_Place();
+                        // On créé l'objet place qui va être enregistré dans FireBase RT Storage
                         daoPlace.create(place);
+                        Toast.makeText(AddPlace.this, "Coin de pêche créé", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(getApplicationContext(), ViewPlaces.class);
+                        startActivity(i);
                     }else{
                         Toast.makeText(AddPlace.this, "Veuillez renseigner le champs \"Nom du coin\"", Toast.LENGTH_LONG).show();
                     }
