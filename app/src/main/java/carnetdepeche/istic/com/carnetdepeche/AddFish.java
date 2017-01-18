@@ -21,6 +21,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -32,6 +34,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -39,6 +42,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import carnetdepeche.istic.com.carnetdepeche.dao.DAO_Fish;
+import carnetdepeche.istic.com.carnetdepeche.dao.DAO_Place;
+import carnetdepeche.istic.com.carnetdepeche.model.Fish;
+import carnetdepeche.istic.com.carnetdepeche.model.GPSCoord;
+import carnetdepeche.istic.com.carnetdepeche.model.Place;
 import carnetdepeche.istic.com.carnetdepeche.utility.Utility;
 
 public class AddFish extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
@@ -58,6 +66,14 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
     private View ivImage;
     private String userChoosenTask;
 
+    private Spinner placeId;
+    private Spinner species;
+    private EditText size;
+    private EditText weight;
+    private EditText commentaries;
+
+    private String photoPath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +81,12 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
         setContentView(R.layout.activity_add_fish);
         getSupportActionBar().setTitle("Ajouter une prise");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        placeId = (Spinner) findViewById(R.id.);
+        species = (Spinner) findViewById(R.id.);
+        size = (EditText) findViewById(R.id.add_place_commentaries);
+        weight = (EditText) findViewById(R.id.add_place_commentaries);
+        commentaries = (EditText) findViewById(R.id.add_place_commentaries);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -91,8 +113,23 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
             @Override
             public void onClick(View v) {
                 //Traitement et vérification pour insertion Firebase
-                if (lastLatLng != null) {
-                    Toast.makeText(AddFish.this, lastLatLng.toString(), Toast.LENGTH_SHORT).show();
+                if (lastMarkerPosition != null) {
+                    if(species.getText().toString().trim().length() != 0 && Size ){
+                        Fish fish = new Fish();
+                        fish.setFisherMan(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        fish.setPhotoPath(photoPath);
+                        fish.setPlaceId();
+                        fish.setSpecies();
+                        fish.setSize();
+                        fish.setWeight();
+                        fish.setCommentary();
+                        DAO_Fish daoFish = new DAO_Fish();
+                        daoFish.create(fish);
+                    }else{
+                        Toast.makeText(AddFish.this, "Veuillez renseigner le champs \"Espèce du poisson\"", Toast.LENGTH_LONG).show();
+                    }
+                }else{
+                    Toast.makeText(AddFish.this, "Veuillez positionner un marqueur sur la carte", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -170,6 +207,8 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
 
         File destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
+
+        photoPath = destination.getPath().toString();
 
         FileOutputStream fo;
         try {
