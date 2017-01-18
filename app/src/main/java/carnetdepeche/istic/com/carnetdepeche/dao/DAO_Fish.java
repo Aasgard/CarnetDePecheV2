@@ -2,8 +2,6 @@ package carnetdepeche.istic.com.carnetdepeche.dao;
 
 import android.app.Activity;
 import android.net.Uri;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,26 +38,7 @@ public class DAO_Fish {
         storageReference.child("fish").child(key).putFile(file);
     }
 
-    public List<String> fillPlaceSpinner(){
-        final List<String> areas = new ArrayList<String>();
-        databaseReference.child("place").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
-                    String placeList = areaSnapshot.child("nom").getValue(String.class);
-                    areas.add(placeList);
-                }
-
-                //Log.d("AreasDebug", areas.toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        return areas;
+    public DatabaseReference getDatabaseReference(){
+        return databaseReference;
     }
 }

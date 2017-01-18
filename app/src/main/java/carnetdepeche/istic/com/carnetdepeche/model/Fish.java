@@ -9,12 +9,12 @@ public class Fish {
     private String species;
     private String photo;
     private long size;
-    private double weight;
+    private long weight;
     private String commentaries;
     private String fisherMan;
     private String placeName;
 
-    public Fish(String id, String species, String photo,int size, double weight, String commentaries, String fisherMan, String placeName) {
+    public Fish(String id, String species, String photo,long size, long weight, String commentaries, String fisherMan, String placeName) {
         this.id = id;
         this.species = species;
         this.photo = photo;
@@ -57,7 +57,7 @@ public class Fish {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(long weight) {
         this.weight = weight;
     }
 

@@ -6,12 +6,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -19,9 +21,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -38,12 +40,17 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import carnetdepeche.istic.com.carnetdepeche.dao.DAO_Fish;
 import carnetdepeche.istic.com.carnetdepeche.model.Fish;
@@ -91,15 +98,28 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
         commentaries = (EditText) findViewById(R.id.add_fish_commentaries);
 
         DAO_Fish daoFish = new DAO_Fish();
-        ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(AddFish.this, android.R.layout.simple_spinner_item, daoFish.fillPlaceSpinner());
+
+        final List<String> areas = new ArrayList<String>();
+        daoFish.getDatabaseReference().child("place").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
+                    String placeList = areaSnapshot.child("nom").getValue(String.class);
+                    areas.add(placeList);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(AddFish.this, android.R.layout.simple_spinner_item, areas);
         areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         placeName.setAdapter(areasAdapter);
 
-        areasAdapter.notifyDataSetChanged();
-        this.placeName.invalidate();
-        placeName.setSelection(0);
-
-        Log.d("AreasDebug", "");
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -135,11 +155,11 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
                         fish.setFisherMan(FirebaseAuth.getInstance().getCurrentUser().getUid());
                         fish.setPhotoPath(photoPath);
 
-                        fish.setPlaceName(placeName.getSelectedItem().toString());
+                        //fish.setPlaceName(placeName.getSelectedItem().toString());
 
                         fish.setSpecies(species.getSelectedItem().toString());
                         fish.setSize(Long.valueOf(size.getText().toString()));
-                        fish.setWeight(Double.valueOf(weight.getText().toString()));
+                        fish.setWeight(Long.valueOf(weight.getText().toString()));
                         fish.setCommentaries(commentaries.getText().toString());
 
                         daoFish.create(fish);
@@ -219,14 +239,15 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
     }
 
     private void onCaptureImageResult(Intent data) {
+
+        photoPath = getRealPathFromURI(data.getData());
+
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
         File destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
-
-        photoPath = destination.getPath().toString();
 
         FileOutputStream fo;
         try {
@@ -266,6 +287,7 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
         if (data != null) {
             try {
                 bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                photoPath = getRealPathFromURI(getImageUri(AddFish.this, bm));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -346,4 +368,18 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
 
     @Override
     public void onProviderDisabled(String provider) {}
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
 }

@@ -36,10 +36,20 @@ public class DAO_Place {
 
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
+    private List<Place> areas;
+
+    public List<Place> getAreas(){
+        return this.areas;
+    }
+
+    public DatabaseReference getDatabaseReference(){
+        return databaseReference;
+    }
 
     public DAO_Place(){
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
+        areas = new ArrayList<>();
     }
 
     public void create(Place place){
@@ -47,6 +57,28 @@ public class DAO_Place {
         databaseReference.child("place").child(key).setValue(place);
         Uri file = Uri.fromFile(new File(place.getPhotoPath()));
         storageReference.child("place").child(key).putFile(file);
+    }
+
+
+    public void getAllPlaces(){
+        areas = new ArrayList<>();
+        databaseReference.child("place").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
+                    Place placeList = areaSnapshot.getValue(Place.class);
+                    Log.d("TEST !!! ", "La place : "+placeList.getNom() +" "+placeList.getCommentary()+"!!!");
+                    areas.add(placeList);
+                }
+                Log.d("+++++++++++++++", "getAllPlaces: "+areas.size());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //Log.d("+++++++++++++++", "getAllPlaces: "+areas.size());
     }
 
 }
