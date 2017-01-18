@@ -83,7 +83,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
-                Toast.makeText(this, "Bienvenue sur l'application", Toast.LENGTH_SHORT).show();
                 firebaseAuthWithGoogle(account);
             } else {
                 Toast.makeText(this, "Erreur [onActivityResult fail]", Toast.LENGTH_SHORT).show();
@@ -101,6 +100,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         }else{
                             Intent i = new Intent(getApplicationContext(), HomePage.class);
                             startActivity(i);
+                            Toast.makeText(getApplicationContext(), "Bienvenue " + FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

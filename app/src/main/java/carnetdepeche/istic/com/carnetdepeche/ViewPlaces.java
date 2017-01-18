@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
@@ -18,10 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import carnetdepeche.istic.com.carnetdepeche.dao.DAO_Place;
 import carnetdepeche.istic.com.carnetdepeche.model.Place;
 
 public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -68,9 +73,33 @@ public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNa
 
         placeListView = (ListView) findViewById(R.id.listView);
 
-        List<Place> listPlace = new ArrayList<Place>();//getPlaces();
 
-        placeListView.setAdapter(new PlaceAdapter(ViewPlaces.this, listPlace));
+        DAO_Place dao = new DAO_Place();
+        /*dao.getAllPlaces();
+
+        List<Place> listPlace = dao.getAreas();
+        Log.d("-----------", "daoArea: "+listPlace.size());
+
+        placeListView.setAdapter(new PlaceAdapter(ViewPlaces.this,  dao.getAreas()));*/
+
+        dao.getDatabaseReference().child("place").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Place> areas = new ArrayList<>();
+                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
+                    Place placeList = areaSnapshot.getValue(Place.class);
+                    Log.d("TEST !!! ", "La place : "+placeList.getNom() +" "+placeList.getCommentary()+"!!!");
+                    areas.add(placeList);
+                }
+                placeListView.setAdapter(new PlaceAdapter(ViewPlaces.this,  areas));
+                Log.d("+++++++++++++++", "getAllPlaces: "+areas.size());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

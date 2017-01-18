@@ -12,20 +12,20 @@
     tools:context="carnetdepeche.istic.com.carnetdepeche.AddFish">
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_fish_validate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/ic_menu_check"
-        android:id="@+id/add_fish_validate"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/add_fish_photo"
-        android:layout_marginBottom="10dp"
         android:layout_gravity="bottom|right"
-        app:rippleColor="?android:attr/colorForegroundInverse"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
         app:backgroundTint="?android:attr/colorPrimary"
-        tools:targetApi="lollipop"
-        android:layout_marginEnd="10dp" />
+        app:fabSize="normal"
+        app:rippleColor="?android:attr/colorForegroundInverse"
+        app:srcCompat="@drawable/ic_menu_check"
+        tools:targetApi="lollipop" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,76 +34,80 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <View
+                android:id="@+id/add_fish_header_photos"
                 android:layout_width="match_parent"
-                android:background="@mipmap/header_blank_addfish"
                 android:layout_height="150dp"
-                android:id="@+id/add_fish_header_photos"></View>
+                android:background="@mipmap/header_blank_addfish"></View>
 
             <android.support.design.widget.FloatingActionButton
+                android:id="@+id/add_fish_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                app:srcCompat="@drawable/ic_menu_camera"
-                android:layout_marginTop="123dp"
-                android:id="@+id/add_fish_photo"
-                android:layout_marginEnd="10dp"
-                app:fabSize="normal"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                app:rippleColor="?android:attr/colorBackgroundFloating"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="123dp"
+                android:clickable="true"
                 app:backgroundTint="?android:attr/colorPrimary"
+                app:fabSize="normal"
+                app:rippleColor="?android:attr/colorBackgroundFloating"
+                app:srcCompat="@drawable/ic_menu_camera"
                 tools:targetApi="m" />
 
             <fragment
                 android:id="@+id/map"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_below="@+id/add_fish_header_photos"
+                android:layout_height="200dp"
                 android:layout_alignParentStart="true"
-                android:layout_height="200dp" />
+                android:layout_below="@+id/add_fish_header_photos" />
 
             <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/add_fish_place_choice"
-                android:layout_below="@+id/map" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/map"
+                android:dropDownWidth="match_parent"
+                android:spinnerMode="dialog" />
 
             <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/add_fish_choice_specie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/add_fish_place_choice"
-                android:entries="@array/species" />
+                android:dropDownWidth="match_parent"
+                android:entries="@array/species"
+                android:spinnerMode="dialog" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
                 android:id="@+id/add_fish_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/add_fish_choice_specie"
-                android:hint="Taille (cm)" />
+                android:ems="10"
+                android:hint="Taille (cm)"
+                android:inputType="number" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:ems="10"
                 android:id="@+id/add_fish_weight"
-                android:hint="Poids (kg)"
-                android:layout_below="@+id/add_fish_size" />
-
-            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
+                android:layout_below="@+id/add_fish_size"
                 android:ems="10"
+                android:hint="Poids (kg)"
+                android:inputType="numberDecimal" />
+
+            <EditText
                 android:id="@+id/add_fish_commentaries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/add_fish_weight"
+                android:ems="10"
                 android:hint="Commentaires"
-                android:layout_below="@+id/add_fish_weight" />
+                android:inputType="textMultiLine" />
         </RelativeLayout>
     </ScrollView>
 
