@@ -26,6 +26,10 @@ public class DAO_Fish {
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
 
+    public DatabaseReference getDatabaseReference(){
+        return databaseReference;
+    }
+
     public DAO_Fish(){
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -55,7 +59,6 @@ public class DAO_Fish {
 
             }
         });
-
         return areas;
     }
 }
