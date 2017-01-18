@@ -81,15 +81,20 @@ public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNa
 
         placeListView.setAdapter(new PlaceAdapter(ViewPlaces.this,  dao.getAreas()));*/
 
-        dao.getDatabaseReference().child("place").addListenerForSingleValueEvent(new ValueEventListener() {
+        Toast.makeText(this, FirebaseAuth.getInstance().getCurrentUser().getUid(), Toast.LENGTH_SHORT).show();
+
+        String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        dao.getDatabaseReference().child("place").orderByChild("creatorId").equalTo(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Toast.makeText(ViewPlaces.this, dataSnapshot.toString(), Toast.LENGTH_SHORT).show();
                 List<Place> areas = new ArrayList<>();
-                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
                     Place placeList = areaSnapshot.getValue(Place.class);
                     areas.add(placeList);
                 }
-                placeListView.setAdapter(new PlaceAdapter(ViewPlaces.this,  areas));
+                placeListView.setAdapter(new PlaceAdapter(ViewPlaces.this, areas));
             }
 
             @Override
@@ -133,7 +138,7 @@ public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNa
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if  (id == R.id.drawer_add_fish) {
+        if (id == R.id.drawer_add_fish) {
             Intent i = new Intent(getApplicationContext(), AddFish.class);
             startActivity(i);
         } else if (id == R.id.drawer_add_place) {

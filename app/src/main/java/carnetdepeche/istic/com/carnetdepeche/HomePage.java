@@ -76,18 +76,17 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         fishListView = (ListView) findViewById(R.id.listView);
 
         DAO_Fish dao = new DAO_Fish();
+        String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        dao.getDatabaseReference().child("fish").addListenerForSingleValueEvent(new ValueEventListener() {
+        dao.getDatabaseReference().child("fish").orderByChild("fisherMan").equalTo(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Fish> listFish = new ArrayList<>();
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
                     Fish fish = areaSnapshot.getValue(Fish.class);
-                    Log.d("TEST !!! ", "La place : "+fish.getSpecies() +"!!!");
                     listFish.add(fish);
                 }
                 fishListView.setAdapter(new FishAdapter(HomePage.this, listFish));
-                Log.d("+++++++++++++++", "getAllPlaces: "+listFish.size());
             }
 
             @Override
