@@ -14,7 +14,8 @@
         android:layout_alignBottom="@+id/photo_place"
         android:layout_toEndOf="@+id/photo_place"
         android:layout_marginBottom="15dp"
-        android:textSize="18sp" />
+        android:textSize="12sp"
+        android:textAllCaps="false" />
 
     <ImageView
         android:id="@+id/photo_place"
