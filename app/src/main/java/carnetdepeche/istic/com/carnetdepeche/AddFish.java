@@ -60,6 +60,8 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
     private LatLng lastLatLng;
     private FloatingActionButton addFishPhoto;
 
+    private Spinner spinner_species;
+
     // Photos manager attibute
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     //private Button btnSelect;
@@ -93,6 +95,8 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
         this.lastMarkerPosition = null;
         this.lastLatLng = null;
 
+        this.spinner_species = (Spinner) findViewById(R.id.spinner2);
+
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_COARSE);
 
@@ -122,7 +126,7 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
                         fish.setSpecies();
                         fish.setSize();
                         fish.setWeight();
-                        fish.setCommentary();
+                        fish.setCommentaries();
                         DAO_Fish daoFish = new DAO_Fish();
                         daoFish.create(fish);
                     }else{

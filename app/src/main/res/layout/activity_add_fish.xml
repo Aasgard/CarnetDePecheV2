@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_add_fish"
@@ -11,27 +11,6 @@
     android:paddingTop="0dp"
     tools:context="carnetdepeche.istic.com.carnetdepeche.AddFish">
 
-    <View
-        android:layout_width="match_parent"
-        android:background="@mipmap/header_blank_addfish"
-        android:layout_height="150dp"
-        android:id="@+id/add_fish_header_photos"></View>
-
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:srcCompat="@drawable/ic_menu_camera"
-        android:layout_marginTop="123dp"
-        android:id="@+id/add_fish_photo"
-        android:layout_marginEnd="13dp"
-        app:fabSize="normal"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        app:rippleColor="?android:attr/colorBackgroundFloating"
-        app:backgroundTint="?android:attr/colorPrimary"
-        tools:targetApi="m" />
-
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,17 +20,92 @@
         android:id="@+id/add_fish_validate"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/add_fish_photo"
-        android:layout_marginBottom="14dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="bottom|right"
         app:rippleColor="?android:attr/colorForegroundInverse"
         app:backgroundTint="?android:attr/colorPrimary"
-        tools:targetApi="lollipop" />
+        tools:targetApi="lollipop"
+        android:layout_marginEnd="10dp" />
 
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_below="@+id/add_fish_header_photos"
-        android:layout_alignParentStart="true"
-        android:layout_height="200dp" />
+        android:layout_height="match_parent">
 
-</RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="match_parent"
+                android:background="@mipmap/header_blank_addfish"
+                android:layout_height="150dp"
+                android:id="@+id/add_fish_header_photos"></View>
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                app:srcCompat="@drawable/ic_menu_camera"
+                android:layout_marginTop="123dp"
+                android:id="@+id/add_fish_photo"
+                android:layout_marginEnd="10dp"
+                app:fabSize="normal"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                app:rippleColor="?android:attr/colorBackgroundFloating"
+                app:backgroundTint="?android:attr/colorPrimary"
+                tools:targetApi="m" />
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/add_fish_header_photos"
+                android:layout_alignParentStart="true"
+                android:layout_height="200dp" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/add_fish_place_choice"
+                android:layout_above="@+id/spinner2"
+                android:layout_below="@+id/map" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/add_fish_choice_specie"
+                android:layout_below="@id/add_fish_place_choice"
+                android:entries="@array/species" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/add_fish_size"
+                android:layout_below="@+id/add_fish_choice_specie"
+                android:hint="Taille (cm)" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/add_fish_weight"
+                android:hint="Poids (kg)"
+                android:layout_below="@+id/add_fish_size" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/add_fish_commentaries"
+                android:hint="Commentaires"
+                android:layout_below="@+id/add_fish_weight" />
+        </RelativeLayout>
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
