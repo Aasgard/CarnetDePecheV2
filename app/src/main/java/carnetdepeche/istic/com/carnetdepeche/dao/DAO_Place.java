@@ -1,22 +1,31 @@
 package carnetdepeche.istic.com.carnetdepeche.dao;
 
+import android.app.Activity;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import carnetdepeche.istic.com.carnetdepeche.AddFish;
+import carnetdepeche.istic.com.carnetdepeche.R;
 import carnetdepeche.istic.com.carnetdepeche.model.Place;
 
 /**
@@ -39,4 +48,5 @@ public class DAO_Place {
         Uri file = Uri.fromFile(new File(place.getPhotoPath()));
         storageReference.child("place").child(key).putFile(file);
     }
+
 }

@@ -12,9 +12,9 @@ public class Fish {
     private double weight;
     private String commentaries;
     private String fisherMan;
-    private String placeId;
+    private String placeName;
 
-    public Fish(String id, String species, String photo,int size, double weight, String commentaries, String fisherMan, String placeId) {
+    public Fish(String id, String species, String photo,int size, double weight, String commentaries, String fisherMan, String placeName) {
         this.id = id;
         this.species = species;
         this.photo = photo;
@@ -22,7 +22,7 @@ public class Fish {
         this.weight = weight;
         this.commentaries = commentaries;
         this.fisherMan = fisherMan;
-        this.placeId = placeId;
+        this.placeName = placeName;
     }
 
     public Fish() {
@@ -49,7 +49,7 @@ public class Fish {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(long size) {
         this.size = size;
     }
 
@@ -81,12 +81,12 @@ public class Fish {
         this.photo = photo;
     }
 
-    public String getPlaceId() {
-        return placeId;
+    public String getPlaceName() {
+        return placeName;
     }
 
-    public void setPlaceId(String placeId) {
-        this.placeId = placeId;
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
     }
 
     public void setFisherMan(String fisherMan) {

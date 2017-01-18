@@ -21,6 +21,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -43,10 +45,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import carnetdepeche.istic.com.carnetdepeche.dao.DAO_Fish;
-import carnetdepeche.istic.com.carnetdepeche.dao.DAO_Place;
 import carnetdepeche.istic.com.carnetdepeche.model.Fish;
-import carnetdepeche.istic.com.carnetdepeche.model.GPSCoord;
-import carnetdepeche.istic.com.carnetdepeche.model.Place;
 import carnetdepeche.istic.com.carnetdepeche.utility.Utility;
 
 public class AddFish extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
@@ -68,7 +67,7 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
     private View ivImage;
     private String userChoosenTask;
 
-    private Spinner placeId;
+    private Spinner placeName;
     private Spinner species;
     private EditText size;
     private EditText weight;
@@ -84,18 +83,21 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
         getSupportActionBar().setTitle("Ajouter une prise");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        placeId = (Spinner) findViewById(R.id.);
-        species = (Spinner) findViewById(R.id.);
-        size = (EditText) findViewById(R.id.add_place_commentaries);
-        weight = (EditText) findViewById(R.id.add_place_commentaries);
-        commentaries = (EditText) findViewById(R.id.add_place_commentaries);
+        placeName = (Spinner) findViewById(R.id.add_fish_place_choice);
+        species = (Spinner) findViewById(R.id.add_fish_choice_specie);
+        size = (EditText) findViewById(R.id.add_fish_size);
+        weight = (EditText) findViewById(R.id.add_fish_weight);
+        commentaries = (EditText) findViewById(R.id.add_fish_commentaries);
+
+        DAO_Fish daoFish = new DAO_Fish();
+        ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(AddFish.this, android.R.layout.simple_spinner_item, daoFish.fillPlaceSpinner());
+        areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        placeName.setAdapter(areasAdapter);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         this.lastMarkerPosition = null;
         this.lastLatLng = null;
-
-        this.spinner_species = (Spinner) findViewById(R.id.spinner2);
 
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_COARSE);
@@ -118,19 +120,24 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
             public void onClick(View v) {
                 //Traitement et vérification pour insertion Firebase
                 if (lastMarkerPosition != null) {
-                    if(species.getText().toString().trim().length() != 0 && Size ){
+                    if(size.getText().toString().trim().length()!=0 ){
                         Fish fish = new Fish();
+
+                        DAO_Fish daoFish = new DAO_Fish();
+
                         fish.setFisherMan(FirebaseAuth.getInstance().getCurrentUser().getUid());
                         fish.setPhotoPath(photoPath);
-                        fish.setPlaceId();
-                        fish.setSpecies();
-                        fish.setSize();
-                        fish.setWeight();
-                        fish.setCommentaries();
-                        DAO_Fish daoFish = new DAO_Fish();
+
+                        fish.setPlaceName(placeName.getSelectedItem().toString());
+
+                        fish.setSpecies(species.getSelectedItem().toString());
+                        fish.setSize(Long.valueOf(size.getText().toString()));
+                        fish.setWeight(Double.valueOf(weight.getText().toString()));
+                        fish.setCommentaries(commentaries.getText().toString());
+
                         daoFish.create(fish);
                     }else{
-                        Toast.makeText(AddFish.this, "Veuillez renseigner le champs \"Espèce du poisson\"", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddFish.this, "Veuillez renseigner le champs \"Taille (cm)\"", Toast.LENGTH_LONG).show();
                     }
                 }else{
                     Toast.makeText(AddFish.this, "Veuillez positionner un marqueur sur la carte", Toast.LENGTH_LONG).show();
