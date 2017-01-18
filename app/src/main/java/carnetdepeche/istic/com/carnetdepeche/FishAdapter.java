@@ -68,7 +68,7 @@ public class FishAdapter extends BaseAdapter {
         holder.avatar.setImageResource(R.drawable.ic_menu_fish);
         holder.size_fish.setText(String.valueOf(fish.getSize()));
         holder.weight_fish.setText(fish.getWeight()+"");
-        holder.commentary.setText(fish.getCommentaries());
+        //holder.commentary.setText(fish.getCommentaries());
 
         return rowView;
     }
