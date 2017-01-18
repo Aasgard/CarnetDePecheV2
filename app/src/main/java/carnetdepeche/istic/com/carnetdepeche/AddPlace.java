@@ -12,7 +12,6 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -42,6 +42,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import carnetdepeche.istic.com.carnetdepeche.dao.DAO_Place;
 import carnetdepeche.istic.com.carnetdepeche.model.GPSCoord;
 import carnetdepeche.istic.com.carnetdepeche.model.Place;
 import carnetdepeche.istic.com.carnetdepeche.utility.Utility;
@@ -65,6 +66,8 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
 
     private View ivImage;
     private String userChoosenTask;
+
+    private String photoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,8 +113,9 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
                         place.setCommentary(commentaries.getText().toString());
                         place.setCreatorId(FirebaseAuth.getInstance().getCurrentUser().getUid());
                         place.setGps(new GPSCoord(lastMarkerPosition.getPosition().latitude, lastMarkerPosition.getPosition().longitude));
-                        //place.setPhoto(Uri.parse(ivImage.getBackground()));
-
+                        place.setPhotoPath(photoPath);
+                        DAO_Place daoPlace = new DAO_Place();
+                        daoPlace.create(place);
                     }else{
                         Toast.makeText(AddPlace.this, "Veuillez renseigner le champs \"Nom du coin\"", Toast.LENGTH_LONG).show();
                     }
@@ -187,12 +191,16 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
     }
 
     private void onCaptureImageResult(Intent data) {
+
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
         File destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
+
+        photoPath = destination.getPath().toString();
 
         FileOutputStream fo;
         try {

@@ -23,12 +23,12 @@ import carnetdepeche.istic.com.carnetdepeche.model.Place;
  * Created by marvi on 17/01/2017.
  */
 
-public class daoPlace {
+public class DAO_Place {
 
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
 
-    public daoPlace(){
+    public DAO_Place(){
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
     }
@@ -36,7 +36,7 @@ public class daoPlace {
     public void create(Place place){
         String key = databaseReference.child("place").push().getKey();
         databaseReference.child("place").child(key).setValue(place);
-        //Uri file = Uri.fromFile(new File(place.getPhotoPath()));
-        //storageReference.child("place").child(key).putFile(file);
+        Uri file = Uri.fromFile(new File(place.getPhotoPath()));
+        storageReference.child("place").child(key).putFile(file);
     }
 }
