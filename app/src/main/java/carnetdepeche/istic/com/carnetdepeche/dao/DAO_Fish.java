@@ -38,24 +38,7 @@ public class DAO_Fish {
         storageReference.child("fish").child(key).putFile(file);
     }
 
-    public List<String> fillPlaceSpinner(){
-        final List<String> areas = new ArrayList<String>();
-        databaseReference.child("place").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
-                    String placeList = areaSnapshot.child("nom").getValue(String.class);
-                    areas.add(placeList);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        return areas;
+    public DatabaseReference getDatabaseReference(){
+        return databaseReference;
     }
 }
