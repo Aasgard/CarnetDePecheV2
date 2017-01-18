@@ -68,7 +68,7 @@
             <Spinner
                 android:id="@+id/add_fish_place_choice"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50sp"
                 android:layout_below="@+id/map"
                 android:dropDownWidth="match_parent"
                 android:spinnerMode="dialog" />
@@ -76,7 +76,7 @@
             <Spinner
                 android:id="@+id/add_fish_choice_specie"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50sp"
                 android:layout_below="@id/add_fish_place_choice"
                 android:dropDownWidth="match_parent"
                 android:entries="@array/species"
