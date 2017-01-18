@@ -19,6 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -93,6 +94,12 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
         ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(AddFish.this, android.R.layout.simple_spinner_item, daoFish.fillPlaceSpinner());
         areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         placeName.setAdapter(areasAdapter);
+
+        areasAdapter.notifyDataSetChanged();
+        this.placeName.invalidate();
+        placeName.setSelection(0);
+
+        Log.d("AreasDebug", "");
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 

@@ -27,8 +27,7 @@ public class FishAdapter extends BaseAdapter {
     public FishAdapter(HomePage fishListActivity, List<Fish> fishs){
         context = fishListActivity;
         result = fishs;
-        inflater = ( LayoutInflater )context.
-                getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
 

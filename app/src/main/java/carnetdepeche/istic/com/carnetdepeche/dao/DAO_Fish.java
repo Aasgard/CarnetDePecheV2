@@ -2,6 +2,8 @@ package carnetdepeche.istic.com.carnetdepeche.dao;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,6 +50,8 @@ public class DAO_Fish {
                     String placeList = areaSnapshot.child("nom").getValue(String.class);
                     areas.add(placeList);
                 }
+
+                //Log.d("AreasDebug", areas.toString());
             }
 
             @Override

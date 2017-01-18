@@ -11,17 +11,26 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
 
+import carnetdepeche.istic.com.carnetdepeche.model.Fish;
 import carnetdepeche.istic.com.carnetdepeche.model.Place;
 
 public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -68,9 +77,32 @@ public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNa
 
         placeListView = (ListView) findViewById(R.id.listView);
 
-        List<Place> listPlace = new ArrayList<Place>();//getPlaces();
+        /*List<Place> listPlace = new ArrayList<Place>();//getPlaces();
 
-        placeListView.setAdapter(new PlaceAdapter(ViewPlaces.this, listPlace));
+        placeListView.setAdapter(new PlaceAdapter(ViewPlaces.this, listPlace));*/
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("place");
+
+        final ArrayList<String> listPlaces = new ArrayList<>();
+        final ArrayAdapter placesAdapter =  new ArrayAdapter(this, android.R.layout.simple_list_item_1, listPlaces);
+
+        this.placeListView.setAdapter(placesAdapter);
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("Nique", Long.toString(dataSnapshot.getChildrenCount()));
+                for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+                    String nom = (String) messageSnapshot.child("nom").getValue();
+                    listPlaces.add(nom);
+                }
+                placesAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
 
     }
 
