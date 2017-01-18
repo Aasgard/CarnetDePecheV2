@@ -6,12 +6,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -119,8 +121,8 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
                         // On créé l'objet place qui va être enregistré dans FireBase RT Storage
                         daoPlace.create(place);
                         Toast.makeText(AddPlace.this, "Coin de pêche créé", Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(getApplicationContext(), ViewPlaces.class);
-                        startActivity(i);
+                        //Intent i = new Intent(getApplicationContext(), ViewPlaces.class);
+                        //startActivity(i);
                     }else{
                         Toast.makeText(AddPlace.this, "Veuillez renseigner le champs \"Nom du coin\"", Toast.LENGTH_LONG).show();
                     }
@@ -197,6 +199,8 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
 
     private void onCaptureImageResult(Intent data) {
 
+        photoPath = getRealPathFromURI(data.getData());
+
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
 
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -204,8 +208,6 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
 
         File destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
-
-        photoPath = destination.getPath().toString();
 
         FileOutputStream fo;
         try {
@@ -245,6 +247,7 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
         if (data != null) {
             try {
                 bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                photoPath = getRealPathFromURI(getImageUri(AddPlace.this, bm));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -325,4 +328,18 @@ public class AddPlace extends AppCompatActivity implements OnMapReadyCallback, L
 
     @Override
     public void onProviderDisabled(String provider) {}
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
 }
