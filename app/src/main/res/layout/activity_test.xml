@@ -9,4 +9,13 @@
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     tools:context="carnetdepeche.istic.com.carnetdepeche.TestActivity">
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:dividerHeight="2dp"
+        android:id="@+id/test"
+        android:background="@color/colorPrimary" />
 </RelativeLayout>

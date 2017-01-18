@@ -5,6 +5,8 @@
     android:id="@+id/activity_add_fish"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
     android:paddingBottom="0dp"
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
@@ -97,17 +99,18 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/add_fish_size"
                 android:ems="10"
-                android:hint="Poids (kg)"
+                android:hint="Poids (grammes)"
                 android:inputType="numberDecimal" />
 
             <EditText
                 android:id="@+id/add_fish_commentaries"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:layout_below="@+id/add_fish_weight"
                 android:ems="10"
                 android:hint="Commentaires"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:textColorLink="@color/colorLineSelectedEditText" />
         </RelativeLayout>
     </ScrollView>
 

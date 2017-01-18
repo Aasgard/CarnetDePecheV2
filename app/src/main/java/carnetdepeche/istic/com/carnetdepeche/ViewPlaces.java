@@ -5,19 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,7 +22,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import carnetdepeche.istic.com.carnetdepeche.dao.DAO_Place;
 import carnetdepeche.istic.com.carnetdepeche.model.Place;
@@ -35,6 +31,7 @@ public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNa
     private TextView tv_drawer_user_name;
     private TextView tv_drawer_user_email;
     ListView placeListView;
+    private ArrayList<Place> areas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +58,7 @@ public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNa
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
 
         View drawerHeaderView = navigationView.getHeaderView(0);
 
@@ -80,24 +78,24 @@ public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNa
         dao.getDatabaseReference().child("place").orderByChild("creatorId").equalTo(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Place> areas = new ArrayList<>();
                 for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
                     Place placeList = areaSnapshot.getValue(Place.class);
+                    placeList.setId(areaSnapshot.getKey());
                     areas.add(placeList);
                 }
                 placeListView.setAdapter(new PlaceAdapter(ViewPlaces.this, areas));
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
 
         placeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ViewPlaces.this, "Clic sur élément : " + parent.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), ViewSinglePlace.class);
+                i.putExtra("id_place", areas.get(position).getId());
+                startActivity(i);
             }
         });
 

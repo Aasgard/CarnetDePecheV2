@@ -5,37 +5,33 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import carnetdepeche.istic.com.carnetdepeche.dao.DAO_Fish;
-import carnetdepeche.istic.com.carnetdepeche.dao.DAO_Place;
-import carnetdepeche.istic.com.carnetdepeche.model.Fish;
-import carnetdepeche.istic.com.carnetdepeche.model.Place;
-
 import java.util.ArrayList;
-import java.util.List;
+
+import carnetdepeche.istic.com.carnetdepeche.dao.DAO_Fish;
+import carnetdepeche.istic.com.carnetdepeche.model.Fish;
 
 public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView tv_drawer_user_name;
     private TextView tv_drawer_user_email;
     ListView fishListView;
+    private ArrayList<Fish> areas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +41,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         setTitle("Liste des prises");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +60,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
 
         View drawerHeaderView = navigationView.getHeaderView(0);
 
@@ -79,17 +78,26 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         dao.getDatabaseReference().child("fish").orderByChild("fisherMan").equalTo(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Fish> listFish = new ArrayList<>();
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
                     Fish fish = areaSnapshot.getValue(Fish.class);
-                    listFish.add(fish);
+                    fish.setId(areaSnapshot.getKey());
+                    areas.add(fish);
                 }
-                fishListView.setAdapter(new FishAdapter(HomePage.this, listFish));
+                fishListView.setAdapter(new FishAdapter(HomePage.this, areas));
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        fishListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getApplicationContext(), ViewSingleFish.class);
+                i.putExtra("id_fish", areas.get(position).getId());
+                startActivity(i);
             }
         });
 

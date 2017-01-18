@@ -100,7 +100,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         }else{
                             Intent i = new Intent(getApplicationContext(), HomePage.class);
                             startActivity(i);
-                            Toast.makeText(getApplicationContext(), "Bienvenue " + FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Bienvenue sur l'application", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

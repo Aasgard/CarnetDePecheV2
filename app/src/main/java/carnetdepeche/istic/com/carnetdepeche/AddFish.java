@@ -14,19 +14,16 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -111,7 +108,7 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> areas = new ArrayList<String>();
-                areas.add("");
+                areas.add("Sélectionner un coin");
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
                     Place placeList = areaSnapshot.getValue(Place.class);
                     areas.add(placeList.getNom());

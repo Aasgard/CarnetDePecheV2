@@ -71,12 +71,12 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
                 android:inputType="textMultiLine"
                 android:ems="10"
                 android:id="@+id/add_place_commentaries"
                 android:layout_below="@+id/add_place_placename"
-                android:hint="Commentaires" />
+                android:hint="Commentaires"
+                android:layout_height="120dp" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -85,7 +85,7 @@
                 android:ems="10"
                 android:id="@+id/add_place_placename"
                 android:hint="Nom du coin"
-                android:textSize="12sp"
+                android:textSize="18sp"
                 android:layout_below="@+id/map"
                 android:layout_alignParentStart="true" />
 

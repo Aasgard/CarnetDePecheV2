@@ -25,6 +25,20 @@ public class Fish {
         this.placeName = placeName;
     }
 
+    @Override
+    public String toString() {
+        return "Fish{" +
+                "id='" + id + '\'' +
+                ", species='" + species + '\'' +
+                ", photo='" + photo + '\'' +
+                ", size=" + size +
+                ", weight=" + weight +
+                ", commentaries='" + commentaries + '\'' +
+                ", fisherMan='" + fisherMan + '\'' +
+                ", placeName='" + placeName + '\'' +
+                '}';
+    }
+
     public Fish() {
 
     }

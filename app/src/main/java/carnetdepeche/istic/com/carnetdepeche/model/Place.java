@@ -28,6 +28,18 @@ public class Place {
         return id;
     }
 
+    @Override
+    public String toString() {
+        return "Place{" +
+                "id='" + id + '\'' +
+                ", nom='" + nom + '\'' +
+                ", gps=" + gps +
+                ", commentary='" + commentary + '\'' +
+                ", creatorId='" + creatorId + '\'' +
+                ", photo='" + photo + '\'' +
+                '}';
+    }
+
     public void setId(String id) {
         this.id = id;
     }

@@ -4,20 +4,20 @@
     <item android:title="Prises" >
         <menu >
             <item android:title="Ajouter une prise"
-                android:icon="@drawable/ic_menu_gallery"
+                android:icon="@drawable/ic_menu_addfish"
                 android:id="@+id/drawer_add_fish" />
             <item android:title="Voir mes prises"
-                android:icon="@drawable/ic_menu_gallery"
+                android:icon="@drawable/ic_menu_viewfishes"
                 android:id="@+id/drawer_get_fishes" />
         </menu>
     </item>
     <item android:title="Coins de pêche" >
         <menu >
             <item android:title="Ajouter un coin"
-                android:icon="@drawable/ic_menu_gallery"
+                android:icon="@drawable/ic_menu_addplace"
                 android:id="@+id/drawer_add_place" />
             <item android:title="Voir mes coins"
-                android:icon="@drawable/ic_menu_gallery"
+                android:icon="@drawable/ic_menu_viewplaces"
                 android:id="@+id/drawer_get_places" />
         </menu>
     </item>
@@ -26,7 +26,7 @@
         <menu>
             <item
                 android:id="@+id/drawer_logoff"
-                android:icon="@drawable/ic_menu_gallery"
+                android:icon="@drawable/ic_menu_logoff"
                 android:title="Se déconnecter" />
         </menu>
     </item>
