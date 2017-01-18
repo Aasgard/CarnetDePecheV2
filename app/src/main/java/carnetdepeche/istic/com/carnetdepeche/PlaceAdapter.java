@@ -1,6 +1,7 @@
 package carnetdepeche.istic.com.carnetdepeche;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,19 +61,19 @@ public class PlaceAdapter extends BaseAdapter {
         rowView = inflater.inflate(R.layout.content_place_list, null);
 
         holder.name_place=(TextView) rowView.findViewById(R.id.name_place);
-        //holder.avatar=(ImageView) rowView.findViewById(R.id.avatar);
-        holder.gps_long=(TextView) rowView.findViewById(R.id.gps_long);
+        holder.avatar=(ImageView) rowView.findViewById(R.id.photo_place);
+        /*holder.gps_long=(TextView) rowView.findViewById(R.id.gps_long);
         holder.gps_lat=(TextView) rowView.findViewById(R.id.gps_lat);
-        holder.commentary=(TextView) rowView.findViewById(R.id.commentary);
+        holder.commentary=(TextView) rowView.findViewById(R.id.commentary);*/
 
 
         Place place = result.get(position);
-        Log.i("tessssssssssst", place.getNom()+"      totot"+position);
         holder.name_place.setText(place.getNom());
+        holder.avatar.setImageResource(R.drawable.ic_menu_marker);
         //holder.avatar.setImageResource(fish.getPhotos());
-        holder.gps_long.setText(place.getGps().getLongitude()+"");
+        /*holder.gps_long.setText(place.getGps().getLongitude()+"");
         holder.gps_lat.setText(place.getGps().getLatitude()+"");
-        holder.commentary.setText(place.getCommentary());
+        holder.commentary.setText(place.getCommentary());*/
 
         return rowView;
     }

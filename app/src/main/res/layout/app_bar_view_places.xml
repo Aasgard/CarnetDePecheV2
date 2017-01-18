@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="carnetdepeche.istic.com.carnetdepeche.ViewPlaces">
+    tools:context="carnetdepeche.istic.com.carnetdepeche.ViewPlaces"
+    android:padding="0dp">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

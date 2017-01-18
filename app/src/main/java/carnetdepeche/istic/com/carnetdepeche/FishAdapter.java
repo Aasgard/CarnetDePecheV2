@@ -57,7 +57,7 @@ public class FishAdapter extends BaseAdapter {
         rowView = inflater.inflate(R.layout.content_fish_list, null);
 
         holder.species=(TextView) rowView.findViewById(R.id.species);
-        //holder.avatar=(ImageView) rowView.findViewById(R.id.avatar);
+        holder.avatar=(ImageView) rowView.findViewById(R.id.photo_fish);
         holder.size_fish=(TextView) rowView.findViewById(R.id.size_fish);
         holder.weight_fish=(TextView) rowView.findViewById(R.id.weight_fish);
 
@@ -65,7 +65,7 @@ public class FishAdapter extends BaseAdapter {
         Fish fish = result.get(position);
 
         holder.species.setText(fish.getSpecies());
-        //holder.avatar.setImageResource(fish.getPhotos());
+        holder.avatar.setImageResource(R.drawable.ic_menu_fish);
         holder.size_fish.setText(String.valueOf(fish.getSize()));
         holder.weight_fish.setText(fish.getWeight()+"");
         holder.commentary.setText(fish.getCommentaries());

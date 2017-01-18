@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,8 +54,6 @@ public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNa
             }
         });
 
-        Toast.makeText(this, FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString(), Toast.LENGTH_SHORT).show();
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -88,16 +87,21 @@ public class ViewPlaces extends AppCompatActivity implements NavigationView.OnNa
                 List<Place> areas = new ArrayList<>();
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
                     Place placeList = areaSnapshot.getValue(Place.class);
-                    Log.d("TEST !!! ", "La place : "+placeList.getNom() +" "+placeList.getCommentary()+"!!!");
                     areas.add(placeList);
                 }
                 placeListView.setAdapter(new PlaceAdapter(ViewPlaces.this,  areas));
-                Log.d("+++++++++++++++", "getAllPlaces: "+areas.size());
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        placeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(ViewPlaces.this, "Clic sur élément : " + parent.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
             }
         });
 
