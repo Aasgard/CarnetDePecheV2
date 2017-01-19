@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "781348658663-f3j9c0nqdetnng3i52c2jnanm2oqkifl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "carnetdepeche.istic.com.carnetdepeche",
+            "certificate_hash": "60C1A6B4CC4CF6CA4B4E1FAC280533042FA1A158"
+          }
+        },
+        {
+          "client_id": "781348658663-a0v67vo1gg713lv8l9fvjn8p0q5he147.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "carnetdepeche.istic.com.carnetdepeche",
+            "certificate_hash": "54C02851E158ADA73D345B107156C5544A8BBC1F"
+          }
+        },
+        {
           "client_id": "781348658663-r89ph7j9re9ln8gcvuqao3ejnggbaof6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
