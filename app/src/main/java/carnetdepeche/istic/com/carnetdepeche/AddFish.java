@@ -80,7 +80,7 @@ public class AddFish extends AppCompatActivity implements OnMapReadyCallback, Lo
     private View ivImage;
 
     /**
-     * Photos manager attibute
+     * Photos manager attibuts
      */
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private String userChoosenTask;
